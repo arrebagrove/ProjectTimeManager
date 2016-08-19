@@ -8,7 +8,7 @@ namespace CodeModules
     {
         private IRegionManager _regionManager;
 
-        public CodeModulesModule(IRegionManager regionManager)
+        public CodeModulesModule(RegionManager regionManager)
         {
             _regionManager = regionManager;
         }

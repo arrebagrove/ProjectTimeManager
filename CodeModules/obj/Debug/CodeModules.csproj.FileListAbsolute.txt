@@ -14,3 +14,6 @@ C:\dev\ProjectTimeManager\CodeModules\obj\Debug\CodeModules.Properties.Resources
 C:\dev\ProjectTimeManager\CodeModules\obj\Debug\CodeModules.csproj.GenerateResource.Cache
 C:\dev\ProjectTimeManager\CodeModules\obj\Debug\CodeModules.dll
 C:\dev\ProjectTimeManager\CodeModules\obj\Debug\CodeModules.pdb
+C:\dev\ProjectTimeManager\CodeModules\obj\Debug\CodeModules.csprojResolveAssemblyReference.cache
+C:\dev\ProjectTimeManager\CodeModules\obj\Debug\Views\AddProject.g.cs
+C:\dev\ProjectTimeManager\CodeModules\obj\Debug\Views\AddProject.baml

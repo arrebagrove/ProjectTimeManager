@@ -131,9 +131,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeModules\CodeModules.csproj">
+    <ProjectReference Include="..\CodeModules\CoreModules.csproj">
       <Project>{AB8B448C-DD74-4D60-A041-3E5D03A32180}</Project>
-      <Name>CodeModules</Name>
+      <Name>CoreModules</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

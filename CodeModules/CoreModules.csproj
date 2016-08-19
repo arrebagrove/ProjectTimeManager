@@ -77,8 +77,8 @@
     </Compile>
     <Compile Include="ViewModels\AddProjectViewModel.cs" />
     <Compile Include="ViewModels\ProjectBodyViewModel.cs" />
-    <Compile Include="Views\AddProject.xaml.cs">
-      <DependentUpon>AddProject.xaml</DependentUpon>
+    <Compile Include="Views\AddProjectView.xaml.cs">
+      <DependentUpon>AddProjectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProjectBody.xaml.cs">
       <DependentUpon>ProjectBody.xaml</DependentUpon>
@@ -94,9 +94,11 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Page Include="Views\AddProject.xaml">
+    <Folder Include="Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\AddProjectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
