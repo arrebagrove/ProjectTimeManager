@@ -3,19 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CodeModules.Views"
              xmlns:prism="http://prismlibrary.com/"
-            prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:viewModels="clr-namespace:CodeModules.ViewModels"
+             prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance viewModels:AddProjectViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <Label Height="30">ProjectName</Label>
-                <TextBox Width="200" Height="30"></TextBox>
-            </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Height="30" Margin="5">Project Name</Label>
+        <TextBox Grid.Row="0" Grid.Column="1" Width="200" Height="30" Margin="5"
+                 Text="{Binding Name}"></TextBox>
+
+        <Label Grid.Row="1" Grid.Column="0" Height="30" Margin="5"
+               ToolTip="Estimated complition time in hours">Estimation</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Width="200" Height="30" Margin="5"
+                 ToolTip="Estimated complition time in hours"
+                 PreviewTextInput="UIElement_OnPreviewTextInput"
+                 Text="{Binding Estimation}"></TextBox>
+        
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Orientation="Horizontal" 
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <Button Content="Add" Margin="5" Command="{Binding AddCommand}"/>
+        <Button Content="Cancel" Margin="5" Command="{Binding CancelCommand}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

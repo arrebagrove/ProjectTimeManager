@@ -4,9 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:viewModels="clr-namespace:CodeModules.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:views="clr-namespace:CodeModules.Views"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="500" d:DataContext="{d:DesignInstance viewModels:ProjectBodyViewModel}">
+    
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding AddProjectRequest, Mode=OneWay}">
+            <prism:PopupWindowAction>
+                <prism:PopupWindowAction.WindowContent>
+                    <views:AddProjectView />
+                </prism:PopupWindowAction.WindowContent>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,6 +29,42 @@
         <Button Content="Add project" Width="80" Height="20"
                 VerticalAlignment="Top" HorizontalAlignment="Left"
                 Command="{Binding AddProjectCommand}"/>
-        
+        <ListView Grid.Row="1" Margin="10" Name="ProjectList" ItemsSource="{Binding Projects}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Project Name" Width="120" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Estimation" Width="80" DisplayMemberBinding="{Binding Estimation}" />
+                    <GridViewColumn Header="Time Remaining" Width="150" DisplayMemberBinding="{Binding TimeRemaining}" />
+                    <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding StartCommand}" Content="Start" Foreground="Blue"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding PauseCommand}" Content="Pause" Foreground="Yellow"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding StopCommand}" Content="Stop" Foreground="Red"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </UserControl>
