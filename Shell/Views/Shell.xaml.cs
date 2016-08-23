@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
+using Infrastructure.Events;
 using Prism.Events;
-using Shell.Events;
 
 namespace Shell.Views
 {

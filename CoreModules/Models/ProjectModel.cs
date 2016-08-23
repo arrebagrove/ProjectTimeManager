@@ -1,11 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Windows.Input;
+using CodeModules.Annotations;
 using Prism.Commands;
-using Prism.Mvvm;
 
 namespace CodeModules.Models
 {
-    public class ProjectModel : BindableBase
+    [DataContract(Namespace = "http://www.shahedaziz.com/project/coremodules/projectmodel", IsReference = false)]
+    public class ProjectModel : INotifyPropertyChanged
     {
         private string _name;
         private float _estimation;
@@ -33,30 +37,52 @@ namespace CodeModules.Models
         public ICommand PauseCommand { get; private set; }
         public ICommand StopCommand { get; private set; }
 
+        [DataMember]
         public string Name
         {
             get { return _name; }
-            set { SetProperty(ref _name, value); }
+            set
+            {
+                if (value.Equals(_name)) return;
+                _name = value;
+                OnPropertyChanged();
+            }
         }
 
+        [DataMember]
         public float Estimation
         {
             get { return _estimation;}
-            set { SetProperty(ref _estimation, value); }
+            set
+            {
+                if (value.Equals(_estimation)) return;
+                _estimation = value;
+                OnPropertyChanged();
+            }
         }
 
+        [DataMember]
         public float TimeRemaining
         {
             get { return _timeRemaining; }
-            set { SetProperty(ref _timeRemaining, value); }
+            set
+            {
+                if (value.Equals(_timeRemaining)) return;
+                _timeRemaining = value;
+                OnPropertyChanged();
+            }
         }
 
+        [DataMember]
         public ProjectStatus Status
         {
             get { return _status; }
             set
             {
-                SetProperty(ref _status, value);
+                if (value.Equals(_status)) return;
+                _status = value;
+                OnPropertyChanged();
+
                 if (value == ProjectStatus.InProgress)
                 {
                     _lastCalculationTime = DateTime.Now;
@@ -94,6 +120,15 @@ namespace CodeModules.Models
         {
             var handle = ProjectCompleteEvent;
             handle?.Invoke(this, EventArgs.Empty);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -1,8 +1,12 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Windows.Input;
 using CodeModules.Models;
 using CodeModules.Notifications;
+using Infrastructure.Events;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
@@ -12,10 +16,10 @@ namespace CodeModules.ViewModels
 {
     public class ProjectBodyViewModel : BindableBase
     {
-        private ObservableCollection<ProjectModel> _projects;
-        private readonly IEventAggregator _eventAggregator;
+        private ProjectCollection _projects;
+        private static DataContractSerializer ProjectSerializer { get; } = new DataContractSerializer(typeof(ProjectCollection));
 
-        public ObservableCollection<ProjectModel> Projects
+        public ProjectCollection Projects
         {
             get { return _projects; }
             set { SetProperty(ref _projects, value); }
@@ -28,14 +32,21 @@ namespace CodeModules.ViewModels
 
         public ProjectBodyViewModel(IEventAggregator eventAggregator)
         {
-            Projects = new ObservableCollection<ProjectModel>();
-            _eventAggregator = eventAggregator;
+            Projects = new ProjectCollection();;
+
+            if (File.Exists("projects.xml"))
+            {
+                using (var fs = File.Open("projects.xml", FileMode.Open))
+                {
+                    Projects = (ProjectCollection)ProjectSerializer.ReadObject(fs);
+                }
+            }
 
             AddProjectRequest = new InteractionRequest<AddProjectNotification>();
             AddProjectCommand = new DelegateCommand(AddProject);
             RefreshCommand = new DelegateCommand(RefreshProjects);
 
-            _eventAggregator.GetEvent<ApplicationCloseRequestEvent>()
+            eventAggregator.GetEvent<ApplicationCloseRequestEvent>().Subscribe(SaveProject);
         }
 
         private void AddProject()
@@ -54,6 +65,14 @@ namespace CodeModules.ViewModels
             Projects.ToList().ForEach(p => p.Refresh());
         }
 
-        
+        private void SaveProject(CancelEventArgs obj)
+        {
+            using (var fs = File.Open("projects.xml", FileMode.Create))
+            {
+                ProjectSerializer.WriteObject(fs, _projects);
+            }
+
+            obj.Cancel = false;
+        }
     }
 }
