@@ -1,15 +1,27 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using Prism.Events;
+using Shell.Events;
 
 namespace Shell.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class Shell : Window
+    public partial class Shell
     {
-        public Shell()
+        private readonly IEventAggregator _eventAggregator;
+
+        public Shell(IEventAggregator eventAggregator)
         {
             InitializeComponent();
+            _eventAggregator = eventAggregator;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            base.OnClosing(e);
+            _eventAggregator.GetEvent<ApplicationCloseRequestEvent>().Publish(e);
         }
     }
 }

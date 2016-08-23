@@ -29,6 +29,9 @@
         <Button Content="Add project" Width="80" Height="20"
                 VerticalAlignment="Top" HorizontalAlignment="Left"
                 Command="{Binding AddProjectCommand}"/>
+        <Button Grid.Row="0" Content="Refresh" Width="80" Height="20"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Command="{Binding RefreshCommand}"/>
         <ListView Grid.Row="1" Margin="10" Name="ProjectList" ItemsSource="{Binding Projects}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

@@ -60,7 +60,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeModulesModule.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Modules\ProjectBodyModule.cs" />
     <Compile Include="Notifications\AddProjectNotification.cs" />

@@ -96,6 +96,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Events\ApplicationCloseRequestEvent.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -131,7 +132,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeModules\CoreModules.csproj">
+    <ProjectReference Include="..\CoreModules\CoreModules.csproj">
       <Project>{AB8B448C-DD74-4D60-A041-3E5D03A32180}</Project>
       <Name>CoreModules</Name>
     </ProjectReference>
